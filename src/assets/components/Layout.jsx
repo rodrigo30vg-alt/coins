@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import StarIcon from '@mui/icons-material/Star';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -17,6 +18,7 @@ import Container from '@mui/material/Container';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
+import Favoritos from './Favoritos';
 import { Detail, CoinDetailProvider } from './detail';
 import { AutorProvider } from './AutorProvider';
 import { ContextAutor } from './ContextAutor';
@@ -75,6 +77,7 @@ export default function Layout() {
         <List>
           {[
             { label: 'Markets', path: '/', icon: <HomeRoundedIcon /> },
+            { label: 'Favorites', path: '/favoritos', icon: <StarIcon /> },
             { label: 'About', path: '/about', icon: <InfoOutlinedIcon /> },
           ].map((item) => (
             <ListItem key={item.path} disablePadding sx={{ mb: 0.5 }}>
@@ -97,6 +100,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/detail/:id" element={ <CoinDetailProvider> <Detail /> </CoinDetailProvider> } />
         </Routes>
       </Container>

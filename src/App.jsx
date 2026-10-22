@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AutorProvider } from './assets/components/AutorProvider';
+import { FavoritosProvider } from './assets/components/FavoritosProvider';
 
 const theme = createTheme({
   palette: {
@@ -63,12 +64,14 @@ const theme = createTheme({
 function App() {
   return (
     <AutorProvider>
+      <FavoritosProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
           <Layout> </Layout>
         </BrowserRouter>
         </ThemeProvider>
+      </FavoritosProvider>
     </AutorProvider>
   );
 }

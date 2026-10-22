@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -6,7 +6,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useNavigate } from 'react-router-dom';
+import { ContextFavoritos } from './ContextFavoritos';
 
 const usdFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -16,6 +20,7 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
 
 export default function Home() {
   const navigate = useNavigate();
+  const { favoritos, setFavoritos } = useContext(ContextFavoritos);
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -94,6 +99,19 @@ export default function Home() {
               <Typography fontWeight={600} sx={{ textAlign: 'right', flexShrink: 0 }}>
                 {usdFormatter.format(coin.current_price)}
               </Typography>
+              <IconButton
+                color="primary"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  if (favoritos.some((favorito) => favorito.id === coin.id)) {
+                    setFavoritos(favoritos.filter((favorito) => favorito.id !== coin.id));
+                  } else {
+                    setFavoritos([...favoritos, coin]);
+                  }
+                }}
+              >
+                {favoritos.some((favorito) => favorito.id === coin.id) ? <StarIcon /> : <StarBorderIcon />}
+              </IconButton>
             </Paper>
           ))}
         </Stack>
